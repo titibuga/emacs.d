@@ -12,7 +12,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-
 ;; IDO Mode
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -28,3 +27,12 @@
 (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'before-save-hook 'time-stamp)
+
+
+;; Misc stuff
+(global-set-key (kbd "C-c q") 'auto-fill-mode)
+(global-linum-mode 1)
+
+;;TODO: Fix this so it doesn't spit the output in emacs itself
+(global-set-key (kbd "C-c p")
+  (lambda () (interactive )(shell-command "latexmk -pdf"))) 
