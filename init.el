@@ -10,9 +10,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-electric-math (quote ("\\(" . "\\)")))
  '(custom-enabled-themes (quote (tango-dark)))
  '(inhibit-startup-screen t)
- '(package-selected-packages (quote (magit auctex))))
+ '(package-selected-packages (quote (auctex magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -34,6 +35,9 @@
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
 (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+;; (add-hook 'LaTeX-mode-hook
+;; 	  (lambda () (set (make-variable-buffer-local 'TeX-electric-math)
+;; 			  (cons "\\(" "\\)"))))
 (add-hook 'before-save-hook 'time-stamp)
 
 
