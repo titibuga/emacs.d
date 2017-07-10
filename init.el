@@ -13,7 +13,7 @@
  '(TeX-electric-math (quote ("\\(" . "\\)")))
  '(custom-enabled-themes (quote (tango-dark)))
  '(inhibit-startup-screen t)
- '(package-selected-packages (quote (auctex magit))))
+ '(package-selected-packages (quote (auctex-latexmk typescript-mode auctex magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -35,6 +35,10 @@
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
 (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+;; Latexmk with auctex
+(require 'auctex-latexmk)
+(auctex-latexmk-setup)
+
 ;; (add-hook 'LaTeX-mode-hook
 ;; 	  (lambda () (set (make-variable-buffer-local 'TeX-electric-math)
 ;; 			  (cons "\\(" "\\)"))))
