@@ -13,7 +13,7 @@
  '(TeX-electric-math (quote ("\\(" . "\\)")))
  '(custom-enabled-themes (quote (tango-dark)))
  '(inhibit-startup-screen t)
- '(package-selected-packages (quote (auctex-latexmk typescript-mode auctex magit))))
+ '(package-selected-packages (quote (avy auctex-latexmk typescript-mode magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -79,3 +79,12 @@
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+
+
+;; Avy config
+(global-set-key (kbd "M-p") 'avy-goto-word-1) ;Jump to word which starts with the input chat
+(global-set-key (kbd "M-g l") 'avy-goto-line) ;Jump to any visible line
+(global-set-key (kbd "C-:") 'avy-goto-char) ;Jump to a char
+
+
+
