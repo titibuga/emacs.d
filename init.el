@@ -3,7 +3,15 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+(require 'package)
+
+;; Melpa
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+
 (package-initialize)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -13,13 +21,20 @@
  '(TeX-electric-math (quote ("\\(" . "\\)")))
  '(custom-enabled-themes (quote (tango-dark)))
  '(inhibit-startup-screen t)
- '(package-selected-packages (quote (company avy auctex-latexmk typescript-mode magit))))
+ '(package-selected-packages
+   (quote
+    (smartparens company avy auctex-latexmk typescript-mode magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+;; Auto-installl packages in the package list
+(package-install-selected-packages)
+
 
 ;; IDO Mode
 (setq ido-enable-flex-matching t)
@@ -71,15 +86,9 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-;; Melpa
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
-
 
 ;; Avy config
 (global-set-key (kbd "M-p") 'avy-goto-word-1) ;Jump to word which starts with the input chat
