@@ -1,4 +1,5 @@
 
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -7,7 +8,7 @@
 
 ;; Melpa
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+             '("melpa-packages" . "http://melpa.milkbox.net/packages/") t)
 
 
 (package-initialize)
@@ -23,7 +24,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (smartparens company avy auctex-latexmk typescript-mode magit))))
+    (vue-mode ido-ubiquitous ido-vertical-mode flx-ido flymake-ruby smartparens company avy auctex-latexmk typescript-mode magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -37,9 +38,26 @@
 
 
 ;; IDO Mode
+(require 'flx-ido)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+(ido-vertical-mode 1)
+(flx-ido-mode 1)
+(setq ido-enable-flex-matching t)
+;; IDO ubiquitous
+(require 'ido-completing-read+)
+(ido-ubiquitous-mode 1)
+;; Display IDO results vertically, rather than horizontally
+;; (setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
+;; (defun ido-disable-line-truncation () (set (make-local-variable 'truncate-lines) nil))
+;; (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
+;; (defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
+;;   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+;;   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
+;; (add-hook 'ido-setup-hook 'ido-define-keys)
+;; (setq flx-ido-use-faces t)
+
 
 ;; Dictionary setting
 (setq ispell-dictionary "en_US")
@@ -94,6 +112,14 @@
 (global-set-key (kbd "M-p") 'avy-goto-word-1) ;Jump to word which starts with the input chat
 (global-set-key (kbd "M-g l") 'avy-goto-line) ;Jump to any visible line
 (global-set-key (kbd "C-:") 'avy-goto-char) ;Jump to a char
+
+;; Company mode config
+(global-company-mode t)
+
+;; Syntax check for ruby
+(require 'flymake-ruby)
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+
 
 
 
