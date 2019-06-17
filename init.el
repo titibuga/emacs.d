@@ -113,7 +113,7 @@
 (global-set-key (kbd "C-:") 'avy-goto-char) ;Jump to a char
 
 ;; Company mode config
-(global-company-mode t)
+;; (global-company-mode t)
 
 ;; Syntax check for ruby
 (require 'flymake-ruby)
