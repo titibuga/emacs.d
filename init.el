@@ -1,5 +1,4 @@
 
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -10,9 +9,7 @@
 (add-to-list 'package-archives
              '("melpa-packages" . "http://melpa.milkbox.net/packages/") t)
 
-
 (package-initialize)
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -24,7 +21,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (vue-mode ido-ubiquitous ido-vertical-mode flx-ido flymake-ruby smartparens company avy auctex-latexmk typescript-mode magit))))
+    (ess company-auctex vue-mode ido-ubiquitous ido-vertical-mode flx-ido flymake-ruby smartparens company avy auctex-latexmk typescript-mode magit))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -42,21 +39,20 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+
+;; IDO Vertical mode and more natural key bindings in the mini-buffer
 (ido-vertical-mode 1)
+(defun vsp-ido-define-keys () ;; C-n/p is more intuitive in vertical layout
+    (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
+    (define-key ido-completion-map (kbd "<up>") 'ido-prev-match))
+(add-hook 'ido-setup-hook 'vsp-ido-define-keys)
+
+
 (flx-ido-mode 1)
-(setq ido-enable-flex-matching t)
 ;; IDO ubiquitous
 (require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
-;; Display IDO results vertically, rather than horizontally
-;; (setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
-;; (defun ido-disable-line-truncation () (set (make-local-variable 'truncate-lines) nil))
-;; (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
-;; (defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
-;;   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-;;   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
-;; (add-hook 'ido-setup-hook 'ido-define-keys)
-;; (setq flx-ido-use-faces t)
+
 
 
 ;; Dictionary setting
@@ -72,9 +68,12 @@
 (require 'auctex-latexmk)
 (auctex-latexmk-setup)
 
-;; (add-hook 'LaTeX-mode-hook
-;; 	  (lambda () (set (make-variable-buffer-local 'TeX-electric-math)
-;; 			  (cons "\\(" "\\)"))))
+;; Auctex company-mode (Auto-complete) -- Temporarily removed
+;; (add-to-list 'load-path "path/to/company-auctex.el")
+;; (require 'company-auctex)
+;; (company-auctex-init)
+
+
 (add-hook 'before-save-hook 'time-stamp)
 
 
