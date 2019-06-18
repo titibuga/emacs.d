@@ -16,12 +16,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(TeX-electric-math (quote ("\\(" . "\\)")))
- '(custom-enabled-themes (quote (tango-dark)))
+ ;; '(ansi-color-names-vector
+ ;;   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ ;; '(custom-enabled-themes nil)
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (ess company-auctex vue-mode ido-ubiquitous ido-vertical-mode flx-ido flymake-ruby smartparens company avy auctex-latexmk typescript-mode magit))))
+    (ess company-auctex vue-mode ido-ubiquitous ido-vertical-mode flx-ido flymake-ruby smartparens company avy auctex-latexmk typescript-mode magit material-theme rainbow-delimiters))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -29,6 +30,9 @@
  ;; If there is more than one, they won't work right.
  )
 
+
+;; Material theme
+(load-theme 'material t)
 
 ;; Auto-installl packages in the package list
 (package-install-selected-packages)
@@ -79,7 +83,10 @@
 
 ;; Misc stuff
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
-(global-linum-mode 1)
+
+(if (version<= "26.0.50" emacs-version )
+    (global-display-line-numbers-mode)
+  (global-linum-mode 1) )
 
 ;;TODO: Fix this so it doesn't spit the output in emacs itself
 (global-set-key (kbd "C-c p")
