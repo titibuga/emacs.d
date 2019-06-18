@@ -34,6 +34,11 @@
 ;; Material theme
 (load-theme 'material t)
 
+;; Remove Menubar
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+
+
 ;; Auto-installl packages in the package list
 (package-install-selected-packages)
 
