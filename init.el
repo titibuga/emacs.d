@@ -55,6 +55,8 @@
 ;; Activate elpy for python files and change auto-completion engine
 ;; TODO: Load elpy lazily
 (elpy-enable)
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
