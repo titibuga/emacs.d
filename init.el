@@ -19,24 +19,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (elpy ;;
-     ess ;;
-     company-auctex ;;
-     vue-mode ;;
-     ido-ubiquitous ;;
-     ido-vertical-mode ;;
-     flx-ido ;;
-     flymake-ruby ;;
-     smartparens ;;
-     company ;;
-     avy ;;
-     auctex-latexmk ;;
-     typescript-mode ;;
-     magit ;;
-     material-theme ;;
-     rainbow-delimiters ;;
-     flycheck ;;
-     ))))
+    (jupyter elpy ess company-auctex vue-mode ido-ubiquitous ido-vertical-mode flx-ido flymake-ruby smartparens company avy auctex-latexmk typescript-mode magit material-theme rainbow-delimiters flycheck))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -55,8 +38,13 @@
 ;; Activate elpy for python files and change auto-completion engine
 ;; TODO: Load elpy lazily
 (elpy-enable)
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
+;; (setq python-shell-interpreter "ipython"
+;;       python-shell-interpreter-args "-i --simple-prompt")
+(setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt"
+      python-shell-prompt-detect-failure-warning nil)
+(add-to-list 'python-shell-completion-native-disabled-interpreters
+             "jupyter")
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
