@@ -96,7 +96,9 @@
 ;; (company-auctex-init)
 
 
+;; Before-saving hooks
 (add-hook 'before-save-hook 'time-stamp)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 ;; Misc stuff
@@ -108,7 +110,7 @@
 
 ;;TODO: Fix this so it doesn't spit the output in emacs itself
 (global-set-key (kbd "C-c p")
-  (lambda () (interactive )(shell-command "latexmk -pdf"))) 
+  (lambda () (interactive )(shell-command "latexmk -pdf")))
 
 
 ;; font size (from https://github.com/bbatsov/prelude)
@@ -116,7 +118,7 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
 
-;; Disable C-x C-x to trigger region activation (from masteringemacs.org) 
+;; Disable C-x C-x to trigger region activation (from masteringemacs.org)
 (defun exchange-point-and-mark-no-activate ()
   "Identical to \\[exchange-point-and-mark] but will not activate the region."
   (interactive)
@@ -144,6 +146,44 @@
 (require 'flymake-ruby)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
+;; Org-mode stuff
+
+;; Babel language loading
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+;;   (julia . t)
+   (python . t)
+   (jupyter . t)))
+
+;; Set inline-images display as default
+(setq org-startup-with-inline-images t)
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
+;; Configure org-image scaling (truncating the real scale value)
+(setq vsp-org-image-scale-step 1.1)
+(defun vsp-org-img-scale-increase ()
+  (interactive)
+  (setq-local vsp-image-width (* vsp-image-width
+  vsp-org-image-scale-step))
+  (setq-local org-image-actual-width (truncate vsp-image-width))
+  (message "org-img-width: %f" org-image-actual-width)
+  (org-redisplay-inline-images) )
+
+(defun vsp-org-img-scale-decrease ()
+  (interactive)
+  (setq-local vsp-image-width (/ vsp-image-width
+  vsp-org-image-scale-step))
+  (setq-local org-image-actual-width (truncate vsp-image-width))
+  (message "org-img-width: %f" org-image-actual-width)
+  (org-redisplay-inline-images) )
 
 
+(defun vsp-set-img-scale-config ()
+  "Set commands to scale inline images in org-mode"
+  (setq-local vsp-image-width (/ (display-pixel-width) 3))
+  (setq-local org-image-actual-width (truncate vsp-image-width))
+  (local-set-key (kbd "C-M-+") 'vsp-org-img-scale-increase)
+  (local-set-key (kbd "C-M--") 'vsp-org-img-scale-decrease) )
 
+(add-hook 'org-mode-hook 'vsp-set-img-scale-config)
